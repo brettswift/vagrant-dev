@@ -1,6 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+Vagrant.require_version ">= 1.4.0"
+
+unless Vagrant.has_plugin?("vagrant-librarian-puppet") then
+  raise "please run: `vagrant plugin install vagrant-librarian-puppet` as this plugin is required."
+end
+
+
 # Vagrant file inspiration:
 #         https://gist.github.com/dustinmm80/6568109
 #         http://architects.dzone.com/articles/dynamic-vagrant-nodes
