@@ -1,0 +1,68 @@
+# #!/usr/bin/env ruby
+
+# TODO: execute r10k ? 
+
+
+
+
+# # Puppet Labs is a ruby shop, so why not do the post-receive hook in ruby?
+# require 'fileutils'
+
+# ENV['GIT_DIR'] = '/home/procppt/puppetconfig'
+
+# # Set this to where you want to keep your environments
+# ENVIRONMENT_BASEDIR = '/etc/puppetlabs/puppet/environments'
+
+# # post-receive hooks set GIT_DIR to the current repository. If you want to
+# # clone from a non-local repository, set this to the URL of the repository,
+# # such as git@git.host:puppet.git
+# SOURCE_REPOSITORY = File.expand_path(ENV['GIT_DIR'])
+
+# # The git_dir environment variable will override the --git-dir, so we remove it
+# # to allow us to create new repositories cleanly.
+# ENV.delete('GIT_DIR')
+
+# # Ensure that we have the underlying directories, otherwise the later commands
+# # may fail in somewhat cryptic manners.
+# unless File.directory? ENVIRONMENT_BASEDIR
+#     puts %Q{#{ENVIRONMENT_BASEDIR} does not exist, cannot create environment directories.}
+#     exit 1
+# end
+
+# output = %x{git branch -r}
+# output.each_line do |line|
+#     if line.match(%r{\w*origin/(.+)$})
+#         branchname = $1
+#         # puts "Branch #{branchname}"
+
+#         if branchname =~ /[\W-]/
+#             puts %Q{Branch "#{branchname}" contains non-word characters, ignoring it.}
+#             next
+#         end
+
+#         environment_path = "#{ENVIRONMENT_BASEDIR}/#{branchname}"
+
+#         # %x{git checkout --track origin/#{branchname}}
+#         %x{git checkout #{branchname}}
+#         %x{git reset --hard origin/#{branchname}}
+#         if File.directory? environment_path
+#             puts "Updating existing environment #{branchname}"
+
+#             # store current dir location
+#             curr_dir = Dir.pwd
+#             Dir.chdir environment_path
+
+#             # Update an existing environment. We do a fetch and then reset in the
+#             # case that someone did a force push to a branch.
+#             %x{git fetch}
+#             %x{git reset --hard origin/HEAD}
+
+#             # restore current dir
+#             Dir.chdir curr_dir
+#         else
+#             # Instantiate a new environment from the current repository.
+#             puts "Creating new environment #{branchname}"
+#             %x{git clone #{SOURCE_REPOSITORY} #{environment_path} --branch #{branchname}}
+#         end
+#     end
+# end

@@ -1,0 +1,11 @@
+#!/bin/bash
+# TODO: not required for vagrant boxes. 
+set -e
+set -u
+location_path=/etc/puppetlabs/puppet-dashboard
+node_file=$location_path/enc/$1
+$location_path/external_node $1
+if [ -f $node_file ];
+then
+    cat $node_file
+fi

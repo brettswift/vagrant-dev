@@ -1,0 +1,14 @@
+:backends:
+    - yaml
+:yaml:
+    :datadir: /etc/puppetlabs/puppet/environments/%{environment}/hieradata
+:hierarchy:
+# {hostname}.{domain}.ca
+# hostname= {dev}{prog}{app}{os}{num}
+    - host/%{hostname}
+    - app/%{application}
+    - program/%{program}
+    - os/%{operatingsystem}
+    - os/%{kernel}
+    - common
+    - users
