@@ -16,6 +16,17 @@ function program_is_installed {
   echo "$return_"
 }
 
+#idempotent gem install 
+# example:  install_gem gem_name
+function install_gem() {
+    if hash $1 2>/dev/null; then
+      echo "installing $1 . . . "
+    		gem install $1
+    else
+        echo "$1 already installed"
+    fi
+}
+
 # usage:  $1 = module
 function install_puppet_module_if_required {
  output=`su root -c 'puppet module list'`
@@ -30,7 +41,7 @@ function install_puppet_module_if_required {
 }
 ##############################
 
-
+install_gem librarian-puppet
 
 # Use our Hiera configuration
 # sudo rm -rf /etc/puppetlabs/puppet/hiera.yaml /etc/hiera.yaml

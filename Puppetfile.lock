@@ -1,0 +1,18 @@
+FORGE
+  remote: http://forge.puppetlabs.com
+  specs:
+    acme/ohmyzsh (0.1.0)
+    proletaryo/nvm_nodejs (0.1.2)
+    puppetlabs/apt (1.4.0)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/mongodb (0.6.0)
+      puppetlabs/apt (>= 1.0.0)
+      puppetlabs/stdlib (>= 2.2.0)
+    puppetlabs/stdlib (4.1.0)
+
+DEPENDENCIES
+  acme/ohmyzsh (>= 0)
+  proletaryo/nvm_nodejs (>= 0)
+  puppetlabs/mongodb (>= 0)
+  puppetlabs/stdlib (>= 0)
+
