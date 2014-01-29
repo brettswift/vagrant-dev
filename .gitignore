@@ -1,2 +1,7 @@
 ###Puppet###
 .vagrant
+
+###librarian-puppet###
+modules
+.tmp
+.librarian

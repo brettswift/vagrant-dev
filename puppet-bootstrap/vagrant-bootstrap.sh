@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "## running vagrant bootstrap ##" }
+echo "## running vagrant bootstrap ##"
 
 
 ############################### 
@@ -16,6 +16,23 @@ function program_is_installed {
   echo "$return_"
 }
 
+#idempotent gem install 
+# example:  install_gem gem_name
+function install_gem() {
+	found=`gem list $1 | grep -i $1`
+
+  if [ "$found" != "" ]; then
+    echo "$1 already installed"
+ 		parts=( $found )
+    echo "Found ${parts[0]} ${parts[1]}"
+  else
+    echo "---------------------------"
+	  echo "Installing $1"
+	  sudo gem install $1 -y
+	  echo "---------------------------"
+  fi
+}
+ 
 # usage:  $1 = module
 function install_puppet_module_if_required {
  output=`su root -c 'puppet module list'`
@@ -30,20 +47,17 @@ function install_puppet_module_if_required {
 }
 ##############################
 
+install_gem librarian-puppet
 
+cd /vagrant/modules
+librarian-puppet install
 
 # Use our Hiera configuration
-sudo rm -rf /etc/puppetlabs/puppet/hiera.yaml /etc/hiera.yaml
-ln -s /vagrant/modules/puppet/files/hiera.yaml /etc/puppetlabs/puppet/hiera.yaml
-ln -s /vagrant/modules/puppet/files/hiera.yaml /etc/hiera.yaml
+# sudo rm -rf /etc/puppetlabs/puppet/hiera.yaml /etc/hiera.yaml
+# ln -s /vagrant/modules/puppet/files/hiera.yaml /etc/puppetlabs/puppet/hiera.yaml
+# ln -s /vagrant/modules/puppet/files/hiera.yaml /etc/hiera.yaml
 
-echo "$(install_puppet_module_if_required puppetlabs-stdlib)"
-echo "$(install_puppet_module_if_required erwbgy-limits)"
-echo "$(install_puppet_module_if_required thias-sysctl)"
-echo "$(install_puppet_module_if_required puppetlabs-ntp)"
-echo "$(install_puppet_module_if_required smarchive-virtualbox"
-#puppet module install puppetlabs-pe_gem
-
-# Create alias for easy Puppet testing
-#TODO: make this idempotent.  multiple vagrant provisions will result in a hilarious .bashrc file
-echo "alias pp='puppet apply /etc/puppetlabs/puppet/environments/master/manifests/site.pp --environment master --modulepath=/etc/puppetlabs/puppet/modules/:/etc/puppetlabs/puppet/environments/master/modules/'" >> /root/.bashrc
+# echo "$(install_puppet_module_if_required puppetlabs-stdlib)"
+# echo "$(install_puppet_module_if_required erwbgy-limits)"
+# echo "$(install_puppet_module_if_required thias-sysctl)"
+# echo "$(install_puppet_module_if_required acme/ohmyzsh)"

@@ -1,5 +1,0 @@
----
-:hierarchy:
-  - "%{repo_class}/%{::osfamily}" 
-  - "%{::osfamily}"
-  - common

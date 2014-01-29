@@ -35,7 +35,7 @@ q_puppetdb_hostname=<%= @fqdn %>
 q_puppetdb_install=y
 q_puppetdb_port=8081
 q_puppetmaster_certname=<%= @fqdn %>
-q_puppetmaster_dnsaltnames=<%= @hostname %>,<%= @fqdn %>,puppet,puppet.sjrb.ad
+q_puppetmaster_dnsaltnames=<%= @hostname %>,<%= @fqdn %>,puppet,puppet.example.com
 q_puppetmaster_enterpriseconsole_hostname=localhost
 q_puppetmaster_enterpriseconsole_port=443
 q_puppetmaster_install=y
