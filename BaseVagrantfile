@@ -54,7 +54,7 @@ use_puppet_enterprise='no'
 
 # uncomment the below to see the ips for each host
 puts 'Node Details:'
-puppet_nodes.each { |n| puts " \e[35m#{n[:ip]}\e[39m : \e[33m#{n[:name]} }" }
+puppet_nodes.each { |n| puts " \e[35m#{n[:ip]}\e[39m : \e[33m#{n[:name]} \e[39m " }
 puts ''
 
 Vagrant.configure("2") do |config|
@@ -81,7 +81,7 @@ Vagrant.configure("2") do |config|
         node_config.vm.provision :shell, :path => "puppet-bootstrap/bootstrap-puppet-enterprise.sh"
       end
 
-      node_config.vm.provision :shell, :path => '../puppet-bootstrap/vagrant-bootstrap.sh'
+      node_config.vm.provision :shell, :path => 'puppet-bootstrap/vagrant-bootstrap.sh'
 
       node_config.vm.provider :virtualbox do |vb|
         vb.customize [
