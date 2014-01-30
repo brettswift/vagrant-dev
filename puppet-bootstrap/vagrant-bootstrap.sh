@@ -19,14 +19,20 @@ function program_is_installed {
 #idempotent gem install 
 # example:  install_gem gem_name
 function install_gem() {
-    if hash $1 2>/dev/null; then
-      echo "installing $1 . . . "
-    		gem install $1
-    else
-        echo "$1 already installed"
-    fi
-}
+	found=`gem list $1 | grep -i $1`
 
+  if [ "$found" != "" ]; then
+    echo "$1 already installed"
+ 		parts=( $found )
+    echo "Found ${parts[0]} ${parts[1]}"
+  else
+    echo "---------------------------"
+	  echo "Installing $gem"
+	  sudo gem install $1 -y
+	  echo "---------------------------"
+  fi
+}
+ 
 # usage:  $1 = module
 function install_puppet_module_if_required {
  output=`su root -c 'puppet module list'`
@@ -43,12 +49,15 @@ function install_puppet_module_if_required {
 
 install_gem librarian-puppet
 
+cd /vagrant/modules
+librarian-puppet install
+
 # Use our Hiera configuration
 # sudo rm -rf /etc/puppetlabs/puppet/hiera.yaml /etc/hiera.yaml
 # ln -s /vagrant/modules/puppet/files/hiera.yaml /etc/puppetlabs/puppet/hiera.yaml
 # ln -s /vagrant/modules/puppet/files/hiera.yaml /etc/hiera.yaml
 
-echo "$(install_puppet_module_if_required puppetlabs-stdlib)"
-echo "$(install_puppet_module_if_required erwbgy-limits)"
-echo "$(install_puppet_module_if_required thias-sysctl)"
-echo "$(install_puppet_module_if_required acme/ohmyzsh)"
+# echo "$(install_puppet_module_if_required puppetlabs-stdlib)"
+# echo "$(install_puppet_module_if_required erwbgy-limits)"
+# echo "$(install_puppet_module_if_required thias-sysctl)"
+# echo "$(install_puppet_module_if_required acme/ohmyzsh)"
