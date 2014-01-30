@@ -32,7 +32,7 @@ defaults = {
   :box=>"centos-64-x64-vbox4210-nocm",
   :box_url=>"http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box",
   :ram=>"256",
-  :forward_agent=>false
+  :forward_agent=>true
 }
 
 

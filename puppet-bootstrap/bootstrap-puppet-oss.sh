@@ -46,18 +46,6 @@ else
 	echo "puppet already installed"
 fi
 
-modules_to_install=("proletaryo-nvm_nodejs" "puppetlabs-stdlib")
-
-# example usage:  (These have been moved to the nvm module)
-# echo "$(install_puppet_module_if_required )"
-# echo "$(install_puppet_module_if_required )"
-
-for i in "${modules_to_install[@]}"
-do
-   echo "$(install_puppet_module_if_required  ${i})"
-done
-
-
 echo "######## bootstrap completed #########"
 
 
