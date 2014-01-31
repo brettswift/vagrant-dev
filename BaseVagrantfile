@@ -3,9 +3,9 @@
 
 Vagrant.require_version ">= 1.4.0"
 
-unless Vagrant.has_plugin?("vagrant-librarian-puppet") then
-  raise "please run: `vagrant plugin install vagrant-librarian-puppet` as this plugin is required."
-end
+# unless Vagrant.has_plugin?("vagrant-librarian-puppet") then
+#   raise "please run: `vagrant plugin install vagrant-librarian-puppet` as this plugin is required."
+# end
 
 
 # Vagrant file inspiration:
@@ -27,16 +27,25 @@ end
 #     ]
 # }
 
+
+#OS detection
+host_os = 'osx' if RbConfig::CONFIG['host_os'] == /darwin/
+host_os = 'win' if RbConfig::CONFIG['host_os'] == /mingw|mswin/
+
+
 defaults = {
   :ip=>"33.33.34.",
   :box=>"centos-64-x64-vbox4210-nocm",
   :box_url=>"http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210-nocm.box",
   :ram=>"256",
-  :forward_agent=>true
+  :forward_agent=>true,
+  :forward_x11=>false,
+  :synced_folders=>[],
+  :synced_folders_create=>false,
 }
 
 
-domain = ''#'example.com'
+domain = 'vagrant'
 
 puppet_nodes = []
 subnet=10
@@ -82,6 +91,13 @@ Vagrant.configure("2") do |config|
       end
 
       node_config.vm.provision :shell, :path => 'puppet-bootstrap/vagrant-bootstrap.sh'
+
+      node_config.vm.synced_folders.each do |folder|
+        host = folder[0]
+        guest = folder[1]
+        puts "sharing #{host} with #{guest}.  It's #{synced_folders_create} that I will create folders if they don't exist."
+        node_config.vm.synced_folder host, guest, create: :synced_folders_create
+      end
 
       node_config.vm.provider :virtualbox do |vb|
         vb.customize [
