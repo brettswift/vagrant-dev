@@ -36,7 +36,7 @@ node node-server {
 
 node /^clean*/ {
   class {'ohmyzsh':
-    user_name => 'dev'
+    user_name => 'vagrant'
   }
 
   }

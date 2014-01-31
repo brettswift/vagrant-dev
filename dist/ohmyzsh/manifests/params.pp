@@ -1,5 +1,5 @@
 class ohmyzsh::params (
-  $theme = 'steeef',
+  $theme = 'smt',
   ){
 
 }

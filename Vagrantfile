@@ -4,8 +4,11 @@
 $nodes = [
   # Clean box
   {
-    :name => :clean,
-    :ip => '33.33.33.10',
+    :name         => :clean,
+    :ip           => '33.33.33.10',
+    :forward_x11  => true,
+    :synced_folders => [['../sandbox','/home/vagrant/sandbox']],
+    :synced_folders_create => true,
   },
   # MongoDB box, with Chef 'mongo' role
   {

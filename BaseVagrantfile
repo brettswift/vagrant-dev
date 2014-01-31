@@ -28,7 +28,8 @@ Vagrant.require_version ">= 1.4.0"
 # }
 
 
-#OS detection
+#OS detection 
+host_os = 'osx' #default
 host_os = 'osx' if RbConfig::CONFIG['host_os'] == /darwin/
 host_os = 'win' if RbConfig::CONFIG['host_os'] == /mingw|mswin/
 
@@ -92,10 +93,10 @@ Vagrant.configure("2") do |config|
 
       node_config.vm.provision :shell, :path => 'puppet-bootstrap/vagrant-bootstrap.sh'
 
-      node_config.vm.synced_folders.each do |folder|
+      node[:synced_folders].each do |folder|
         host = folder[0]
         guest = folder[1]
-        puts "sharing #{host} with #{guest}.  It's #{synced_folders_create} that I will create folders if they don't exist."
+        puts "sharing #{host} with #{guest}.  It's #{node[:synced_folders_create]} that I will create folders if they don't exist."
         node_config.vm.synced_folder host, guest, create: :synced_folders_create
       end
 
