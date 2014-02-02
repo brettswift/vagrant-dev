@@ -4,6 +4,12 @@
 #in migration - currently using own hand bombed nodejs module.  
 node nodejs {
 
+  #TODO: hook in hiera to solve duplicate package warnings
+  # mentioned here. 
+  class {'ohmyzsh':
+    user_name => 'vagrant',
+  }
+  
   stage { 'first':}
   stage { 'last':}
 
@@ -11,13 +17,13 @@ node nodejs {
   Stage['main'] ->
   Stage['last']
  
-  # class{ 'mongodb':
-  #   projectName     => "uptime",
-  #   dbName          => "brettUptime",
-  #   dbUser          => "uptimeUser",
-  #   dbPass          => "password",
-  #   stage           => last
-  # }
+  class{ 'mongodb_old':
+    projectName     => "uptime",
+    dbName          => "brettUptime",
+    dbUser          => "uptimeUser",
+    dbPass          => "password",
+    stage           => last
+  }
 
   # class {'nvm::install':} ->
   class {'nodesite':

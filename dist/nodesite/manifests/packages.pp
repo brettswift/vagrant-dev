@@ -1,18 +1,27 @@
 class nodesite::packages{
-  package{"make":
+
+  if ! defined(Package['make']) {
+    package{"make":
     ensure => latest,
+    }
   }
 
-  package{"git":
+  if ! defined(Package['git']) {
+    package{"git":
     ensure => latest,
+    }
   }
 
-  package{"curl":
+  if ! defined(Package['curl']) {
+    package{"curl":
     ensure => latest,
+    }
   }
 
-  service { "iptables":
+  if ! defined(Service['iptables']) {
+    service { "iptables":
       enable => false,
     ensure => stopped,
+    }
   }
 }

@@ -4,8 +4,6 @@ class nodesite::project(
 		$file_to_run 		= 'app.js',
 		$node_version 	= {},
 	){
-	# require nodesite::nvm
-
 	$projectDir = "/tmp/gitProjects"
 
 	# regex to get project name, used in folder
@@ -48,6 +46,7 @@ class nodesite::project(
 	exec { "runProject":
 		command => "$nvm_nodejs::NODE_EXEC $file_to_run &",
 		cwd			=> "/tmp/gitProjects/$projectName",
+		returns => 0,
 		user 		=> "vagrant",
 	}
  
@@ -62,5 +61,6 @@ class nodesite::project(
 	info("##### ---------------->>> git URI:    $git_url")
 	info("##### ---------------->>> project name:    $projectName")
 	info("node exe: $nvm_nodejs::NODE_EXEC")
+	# notify{"testing": message => " ---------------->>> git URI:    $git_url"}
 
 }
