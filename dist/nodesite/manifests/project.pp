@@ -1,21 +1,21 @@
 class nodesite::project(
-		$gitUri 	 		= {},
-		$gitBranch		= 'master',
-		$fileToRun 		= 'app.js',
-		$nodeVersion 	= {},
+		$git_url 	 		= {},
+		$git_branch		= 'master',
+		$file_to_run 		= 'app.js',
+		$node_version 	= {},
 	){
 	# require nodesite::nvm
 
 	$projectDir = "/tmp/gitProjects"
 
 	# regex to get project name, used in folder
-	$projectNameDirty = regsubst($gitUri, '^(.*[\\\/])', '')
+	$projectNameDirty = regsubst($git_url, '^(.*[\\\/])', '')
 	$projectName = regsubst($projectNameDirty, '.git', '')
 
 	
 	class { 'nvm_nodejs':
   	user    => 'vagrant',
-  	version => $nodeVersion,
+  	version => $node_version,
 	}
 
 	file { "/tmp/gitProjects":
@@ -23,19 +23,19 @@ class nodesite::project(
 	}
 
 	exec { "cloneProject":
-		command => "/usr/bin/git clone --depth 1 $gitUri  &>>$projectName.log",
+		command => "/usr/bin/git clone --depth 1 $git_url  &>>$projectName.log",
 		cwd			=> "/tmp/gitProjects",
 		creates => "/tmp/gitProjects/$projectName.log",
 	}
 
-	exec { "gitBranch":
-		command => "/usr/bin/git checkout $gitBranch",
+	exec { "git_branch":
+		command => "/usr/bin/git checkout $git_branch",
 		cwd			=> "/tmp/gitProjects/$projectName",
 		# TODO: notify npm purge exec.
 	}
 
 	exec { "pullProject":
-		command => "/usr/bin/git pull origin $gitBranch",
+		command => "/usr/bin/git pull origin $git_branch",
 		cwd			=> "/tmp/gitProjects/$projectName",
 	}
 
@@ -46,19 +46,20 @@ class nodesite::project(
 
 	# TODO: change to service - create init.d service template
 	exec { "runProject":
-		command => "$nvm_nodejs::NODE_EXEC $fileToRun &",
+		command => "$nvm_nodejs::NODE_EXEC $file_to_run &",
 		cwd			=> "/tmp/gitProjects/$projectName",
+		user 		=> "vagrant",
 	}
-
+ 
  	Class['nvm_nodejs'] -> 
 	File['/tmp/gitProjects'] -> 
 	Exec['cloneProject'] -> 
-	Exec['gitBranch'] -> 
+	Exec['git_branch'] -> 
 	Exec['pullProject'] -> 
 	Exec['npmInstall'] -> 
 	Exec['runProject']
 
-	info("##### ---------------->>> git URI:    $gitUri")
+	info("##### ---------------->>> git URI:    $git_url")
 	info("##### ---------------->>> project name:    $projectName")
 	info("node exe: $nvm_nodejs::NODE_EXEC")
 

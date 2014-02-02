@@ -49,6 +49,7 @@ function install_puppet_module_if_required {
 
 install_gem librarian-puppet
 
+#TODO: move to base vagrant file to be more intuitive
 cd /vagrant/modules
 librarian-puppet install
 

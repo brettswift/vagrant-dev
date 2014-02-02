@@ -1,39 +1,36 @@
-# http://www.websequencediagrams.com/?lz=UHVwcGV0IFZpcnR1YWwgVHlwZXMgdy8gSGllcmEKCnNpdGUucHAgLT4gY2xhc3NEZWZpbml0aW9uOiBoaWVyYSgAEgU6OnYAOwYAIAUsICBkZWZhdWx0cywgACEGADgGIGFycmF5KQoAPA8ASRVjcmVhdGVfcmVzb3VyY2VzKABbBy50eXBlLACBCAZPYmplY3QocykgaGFzaCwAbQkAPCZyZWFsaXplIChDAIE-BQCBfAdbAIFSBV8AgSUFXSkKIgCBUg4iIC0-IAAEEDpkAIINCQ&s=modern-blue
-
-# TODO: move defaults to nodesite.params, and load defaults
 class nodesite (
-    $gitUri 			= {},
-    $gitBranch 		= {},
-    $nodeVersion 	= {},
-    $fileToRun 		= {},
-){
+    $git_url 				= undef,
+    $git_branch 		= $nodesite::params::git_branch,
+    $node_version 	= $nodesite::params::node_version,
+    $file_to_run 		= $nodesite::params::file_to_run,
+  ) inherits nodesite::params {
+ 
+  include nodesite::packages
 
-	
 
-	 class{ 'nvm': 
-	 }
 
-	#  anchor {'nodesite::begin':
-	#  		before 	=> Class['nvm::install'],
-	#  		notify 	=> Class['nodesite::packages'],
-	# }
+
+		 # class{ 'nvm': 
+		 # }
 
 	# require nvm::install
 	# class{'nvm::install':}
 
-	include nodesite::packages
 	# include nodesite::project
 
 	# TODO: use require before class instead of dependencies below? 
 	class {'nodesite::project':
-			gitUri 			=> $gitUri,
-			gitBranch 	=> $gitBranch,
-			fileToRun 	=> $fileToRun,
-			nodeVersion	=> $nodeVersion,
+			git_url 			=> $git_url,
+			git_branch 		=> $git_branch,
+			file_to_run 	=> $file_to_run,
+			node_version	=> $node_version,
 	}
 	
   # # Class['nvm'] -> 
   # Class['nodesite::packages'] ->
   # Class['nodesite::project']
 
+
+	info("##### ---------------->>> git URI:    			$git_url")
+	info("node exe: $nvm_nodejs::NODE_EXEC")
 }

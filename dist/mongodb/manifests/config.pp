@@ -17,7 +17,7 @@ class mongodb::config(
 	}
 
 	exec { "initializeDatabase":
-		command => "/usr/bin/mongo initMongo.js",
+		command => "/usr/bin/mongo initMongo.js",`
 		cwd			=> "/tmp/mongodb/$projectName/",
 		user 		=> "root",
 	}
