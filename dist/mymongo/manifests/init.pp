@@ -1,13 +1,13 @@
-class mongodbOld(
+class mymongo(
 	$projectName	= {},
 	$dbName 	 		= {},
 	$dbUser				= {},
 	$dbPass 			= {},
 	){
 
-		include mongodbOld::services
+		include mymongo::services
 
-		class{ 'mongodbOld::config':
+		class{ 'mymongo::config':
 			projectName	=> $projectName,
 			dbName 	 		=> $dbName,
 			dbUser			=> $dbUser,
@@ -17,13 +17,13 @@ class mongodbOld(
 
 		file { "/etc/yum.repos.d/10gen.repo":
 		ensure 	=> present,
-			source	=> "puppet:///dist/mongodb/10gen.repo",
+			source	=> "puppet:///dist/mymongo/10gen.repo",
 		}
 
 
 		File['/etc/yum.repos.d/10gen.repo'] ->
-		Class['mongodbOld::packages'] ->
-		Class['mongodbOld::services'] ->
-		Class['mongodbOld::config']
+		Class['mymongo::packages'] ->
+		Class['mymongo::services'] ->
+		Class['mymongo::config']
 
 	}

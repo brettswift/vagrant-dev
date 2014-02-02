@@ -13,6 +13,9 @@ $nodes = [
   {
     :name => :nodejs,
   },
+  {
+    :name       => :empty,
+  },
 ]
 
 load("BaseVagrantfile")

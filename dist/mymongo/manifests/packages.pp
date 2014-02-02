@@ -1,4 +1,4 @@
-class mongodbOld::packages{
+class mymongo::packages{
   package{"mongo-10gen-server":
     ensure => latest,
   }
