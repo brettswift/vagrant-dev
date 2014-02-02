@@ -1,6 +1,6 @@
-class mongodb::services{
+class mongodbOld::services{
   
-  require mongodb::packages
+  require mongodbOld::packages
 
   service { "mongod":
       enable => true,

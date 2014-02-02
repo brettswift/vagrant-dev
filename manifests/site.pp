@@ -17,7 +17,7 @@ node nodejs {
   Stage['main'] ->
   Stage['last']
  
-  class{ 'mongodb_old':
+  class{ 'mongodbOld':
     projectName     => "uptime",
     dbName          => "brettUptime",
     dbUser          => "uptimeUser",
