@@ -39,7 +39,16 @@ node /^clean*/ {
     user_name => 'vagrant',
   }
 
+}
+
+node /^training*/ {
+  class {'ohmyzsh':
+    user_name => 'developer',
   }
+
+  include gnomedesktop
+
+}
 
 node default {
   #vagrant up will build an empty shell if node definition doesn't exist.
