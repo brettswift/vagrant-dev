@@ -3,5 +3,6 @@
 
 ###librarian-puppet###
 modules
+modules/README.md
 .tmp
 .librarian
