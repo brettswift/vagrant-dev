@@ -51,7 +51,7 @@ install_gem librarian-puppet
 
 
 #TODO: move to base vagrant file to be more intuitive
-yum install git
+yum install git -y
 cd /vagrant
 librarian-puppet install
 

@@ -17,22 +17,22 @@ node nodejs {
   Stage['main'] ->
   Stage['last']
 
-  # class{ 'mymongo':
-  #   projectName     => "uptime",
-  #   dbName          => "brettUptime",
-  #   dbUser          => "uptimeUser",
-  #   dbPass          => "password",
-  #   stage           => last
+  class{ 'mymongo':
+    projectName     => "uptime",
+    dbName          => "brettUptime",
+    dbUser          => "uptimeUser",
+    dbPass          => "password",
+    stage           => last
+  }
+
+  # class {'::mongodb::server':
+  #   auth => true,
   # }
 
-  class {'::mongodb::server':
-    auth => true,
-  }
-
-  mongodb::db { 'brettUptime':
-    user          => 'uptimeUser',
-    password_hash => 'f6f13525912d3b67729f135ce4431413',
-  }
+  # mongodb::db { 'brettUptime':
+  #   user          => 'uptimeUser',
+  #   password_hash => 'f6f13525912d3b67729f135ce4431413',
+  # }
 
   #$ echo -n uptimeUser:mongo:password | openssl md5
 
