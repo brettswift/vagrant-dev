@@ -1,4 +1,6 @@
-class gnomedesktop ()  {
+class gnomedesktop (
+  $user_name = 'vagrant'
+  )  {
 
   include gnomedesktop::packages
   include gnomedesktop::terminal
