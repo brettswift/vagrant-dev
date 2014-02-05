@@ -46,7 +46,9 @@ node /^training*/ {
     user_name => 'developer',
   }
 
-  include gnomedesktop
+  class {'gnomedesktop':
+    user_name => 'developer'
+  }
 
 }
 

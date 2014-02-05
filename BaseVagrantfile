@@ -82,7 +82,7 @@ Vagrant.configure("2") do |config|
         node_config.vm.forward_port(node[:fwdguest], node[:fwdhost])
       end
 
-      node_config.vm.synced_folder '../../', '/vagrant'
+      # node_config.vm.synced_folder '../../', '/vagrant'
 
       if use_puppet_enterprise == 'no' then
         #bootstraps with Puppet Open Source

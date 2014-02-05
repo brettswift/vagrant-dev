@@ -14,6 +14,12 @@ class ohmyzsh::zsh(
     password    => '$1$asany8K2$iogsj0FKq5i9x.2P0Cc5I1', #==> password
   }
 
+  file {"/etc/sudoers.d/$user_name":
+    ensure    => present,
+    content   => "$user_name ALL = (ALL)ALL  NOPASSWD: ALL",
+    mode      => 0440,
+  }
+
   exec {'ohmyzsh':
     command => 'curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh',
     creates => "/home/$user_name/.zshrc.pre-oh-my-zsh",
