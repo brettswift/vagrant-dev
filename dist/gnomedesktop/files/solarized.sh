@@ -10,6 +10,6 @@ eval `dircolors ~/.dircolors`
 git clone https://github.com/sigurdga/gnome-terminal-colors-solarized.git
 cd gnome-terminal-colors-solarized
 
-And now you can set it to light or dark using the following commands:
+# And now you can set it to light or dark using the following commands:
 ./set_dark.sh
-./set_light.sh
+# ./set_light.sh
