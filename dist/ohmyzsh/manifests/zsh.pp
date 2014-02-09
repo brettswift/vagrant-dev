@@ -16,7 +16,7 @@ class ohmyzsh::zsh(
 
   file {"/etc/sudoers.d/$user_name":
     ensure    => present,
-    content   => "$user_name ALL = (ALL)ALL  NOPASSWD: ALL",
+    content   => template('ohmyzsh/sudoers.d_user.erb'),
     mode      => 0440,
   }
 
@@ -31,6 +31,7 @@ class ohmyzsh::zsh(
     path    => "/home/$user_name/.zshrc",
     ensure  => file,
     content => template('ohmyzsh/.zshrc.erb'),
+    mode    => 0777,
   }
 
   User["$user_name"] -> 

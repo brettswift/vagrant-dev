@@ -10,7 +10,7 @@ class gnomedesktop::terminal (
   }
 
   exec { "install solarized":
-    command => "/bin/bash /home/$user_name/solarized.sh  >> /home/$user_name/solarized-install.log",
+    command => "/bin/bash /home/$user_name/solarized.sh  2> /home/$user_name/solarized-stderr.log 1>> /home/$user_name/solarized-install.log",
     creates => "/home/$user_name/solarized-install.log",
     user    => $user_name,
   }

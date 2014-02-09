@@ -10,5 +10,15 @@ class gnomedesktop (
     content   => template("gnomedesktop/inittab.erb"),
   }
 
+  service { "network":
+    enable => true,
+  	ensure => running,
+  	hasrestart => true,
+  	require => Class["gnomedesktop::packages"],
+  }
+
+  Class['gnomedesktop::packages'] -> 
+	Service["network"]
+
 
 }

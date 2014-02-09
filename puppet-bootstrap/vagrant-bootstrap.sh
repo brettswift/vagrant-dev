@@ -27,8 +27,8 @@ function install_gem() {
     echo "Found ${parts[0]} ${parts[1]}"
   else
     echo "---------------------------"
-	  echo "Installing $1"
-	  sudo gem install $1 -y
+	  echo "Installing $@ " #(all commands to accept versioning and other options)
+	  sudo gem install $@ -y --no-rdoc --no-ri
 	  echo "---------------------------"
   fi
 }
@@ -40,16 +40,16 @@ function install_puppet_module_if_required {
  if [[ "$output" == *"$1"* ]]; then
    echo "module $1 already installed"
  else
-   echo `su root -c "puppet module install $1"`
+   echo `su root -c "puppet modulesle install $1"`
    echo "module $1 finished installing"
    echo "** ignore the above message about command not found**"
  fi
 }
 ##############################
 
-install_gem librarian-puppet
+install_gem librarian-puppet -v 0.9.11
 
-cd /vagrant/modules
+cd /vagrant
 librarian-puppet install
 
 # Use our Hiera configuration
