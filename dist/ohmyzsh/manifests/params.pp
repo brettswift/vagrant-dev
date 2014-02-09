@@ -1,8 +1,9 @@
 class ohmyzsh::params (
   $user_name = 'vagrant',
-  $theme = 'smt',
+  $theme = 'steeef',
   $plugins = ['git', 'node', 'npm'],
-  $aliases = ["ll ='ls -lAh'",
+  # "ll ='ls -lAh'", --> not working 
+  $aliases = [
   						"l  ='ls -la",
   						],
   ){
