@@ -14,6 +14,7 @@ $nodes = [
     # :synced_folders => [['../sandbox','/home/vagrant/sandbox']],
     # :synced_folders_create => true,
     :displayGui   => true,
+    :ram=>"1024",
   },
   # nodejs
   {
