@@ -31,4 +31,9 @@ class gnomedesktop::packages ()  {
     command => '/usr/bin/yum -y groupinstall "Fonts"',
   }
 
+  exec { 'groupInstall Internet Browser':
+    unless  => '/usr/bin/yum grouplist "Internet Browser" | /bin/grep "^Installed Groups"',
+    command => '/usr/bin/yum -y groupinstall "Internet Browser"',
+  }
+
 }
