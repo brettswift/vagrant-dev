@@ -11,8 +11,8 @@ $nodes = [
   {# training box (with desktop)
     :name         => :training,
     :forward_x11  => true,
-    # :synced_folders => [['../sandbox','/home/vagrant/sandbox']],
-    # :synced_folders_create => true,
+    :synced_folders => [['../sandbox','/home/developer/sandbox']],
+    :synced_folders_create => true,
     :displayGui   => true,
     :ram=>"1024",
   },
